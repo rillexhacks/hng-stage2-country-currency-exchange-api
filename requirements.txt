@@ -2,7 +2,7 @@ fastapi==0.104.1
 uvicorn==0.24.0
 sqlmodel==0.0.27
 python-dotenv==1.0.0
-aiomysql==0.3.2
+asyncmy==0.2.10
 Pillow>=10.4.0
 pydantic>=2.9.0
 pydantic-settings>=2.5.0
