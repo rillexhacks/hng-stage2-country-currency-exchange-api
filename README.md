@@ -5,7 +5,7 @@ A RESTful API that fetches country data from external APIs, stores it in a MySQL
 ## 🌐 Live Demo
 
 The API is deployed and accessible at:
-**https://hng-stage2-country-currency-exchange-api.onrender.com**
+**https://ectotrophic-thromboplastically-langston.ngrok-free.dev/**
 
 ## 📋 Table of Contents
 
@@ -42,8 +42,8 @@ The API is deployed and accessible at:
 - **Image Processing**: Pillow (PIL)
 - **HTTP Client**: httpx
 - **Validation**: Pydantic
-- **Database**: Aiven (MySQL)
-- **Deployment**: Render
+- **Database**: MySQL (Local/Remote)
+- **Deployment**: ngrok tunnel
 
 ## 📁 Project Structure
 
@@ -142,14 +142,14 @@ stage2_country_currency_exchange_api/
    FLUSH PRIVILEGES;
    ```
 
-### Aiven MySQL (Production)
+### Remote MySQL Setup
 
-This project uses Aiven for production MySQL hosting:
+For production or remote MySQL hosting:
 
-1. **Create Aiven account** at https://aiven.io
-2. **Create MySQL service**
-3. **Get connection details** from Aiven console
-4. **Update environment variables** with Aiven credentials
+1. **Set up your MySQL host** (can be any cloud provider)
+2. **Configure connection details**
+3. **Update environment variables** with your database credentials
+4. **Ensure proper SSL/security settings**
 
 ## 🔧 Environment Variables
 
@@ -159,8 +159,8 @@ Create a `.env` file in the project root:
 # Database Configuration
 DATABASE_URL=mysql+asyncmy://username:password@host:port/database_name
 
-# For Aiven (Production)
-# DATABASE_URL=mysql+asyncmy://avnadmin:password@host:port/defaultdb?ssl=require
+# For Remote MySQL (Production)
+# DATABASE_URL=mysql+asyncmy://username:password@host:port/database_name?ssl=require
 
 # Application Configuration
 API_HOST=0.0.0.0
@@ -189,20 +189,30 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 uvicorn src:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### Production
+### Running with ngrok
 
-```bash
-uvicorn src:app --host 0.0.0.0 --port 8000
-```
+To expose your local development server to the internet:
 
-The API will be available at `http://localhost:8000`
+1. **Start your FastAPI application**:
+   ```bash
+   uvicorn src:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+2. **In another terminal, start ngrok**:
+   ```bash
+   ngrok http 8000
+   ```
+
+3. **Access your API** using the ngrok URL provided
+
+The API will be available at `http://localhost:8000` locally and via your ngrok URL publicly.
 
 ## 📖 API Usage Examples
 
 ### 1. Refresh Countries Data
 
 ```bash
-curl -X POST "https://hng-stage2-country-currency-exchange-api.onrender.com/countries/refresh"
+curl -X POST "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries/refresh"
 ```
 
 **Response:**
@@ -219,43 +229,43 @@ curl -X POST "https://hng-stage2-country-currency-exchange-api.onrender.com/coun
 ### 2. Get All Countries
 
 ```bash
-curl "https://hng-stage2-country-currency-exchange-api.onrender.com/countries"
+curl "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries"
 ```
 
 ### 3. Filter by Region
 
 ```bash
-curl "https://hng-stage2-country-currency-exchange-api.onrender.com/countries?region=Africa"
+curl "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries?region=Africa"
 ```
 
 ### 4. Filter by Currency
 
 ```bash
-curl "https://hng-stage2-country-currency-exchange-api.onrender.com/countries?currency=NGN"
+curl "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries?currency=NGN"
 ```
 
 ### 5. Sort by GDP (Descending)
 
 ```bash
-curl "https://hng-stage2-country-currency-exchange-api.onrender.com/countries?sort=gdp_desc"
+curl "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries?sort=gdp_desc"
 ```
 
 ### 6. Get Specific Country
 
 ```bash
-curl "https://hng-stage2-country-currency-exchange-api.onrender.com/countries/Nigeria"
+curl "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries/Nigeria"
 ```
 
 ### 7. Delete Country
 
 ```bash
-curl -X DELETE "https://hng-stage2-country-currency-exchange-api.onrender.com/countries/Nigeria"
+curl -X DELETE "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries/Nigeria"
 ```
 
 ### 8. Get Status
 
 ```bash
-curl "https://hng-stage2-country-currency-exchange-api.onrender.com/status"
+curl "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/status"
 ```
 
 **Response:**
@@ -269,7 +279,7 @@ curl "https://hng-stage2-country-currency-exchange-api.onrender.com/status"
 ### 9. Get Summary Image
 
 ```bash
-curl "https://hng-stage2-country-currency-exchange-api.onrender.com/countries/image"
+curl "https://ectotrophic-thromboplastically-langston.ngrok-free.dev/countries/image"
 ```
 
 ## 🌍 Sample API Responses
@@ -307,25 +317,28 @@ curl "https://hng-stage2-country-currency-exchange-api.onrender.com/countries/im
 
 ## 🚀 Deployment
 
-### Render Deployment
+### ngrok Deployment
 
-This project is deployed on Render:
+This project is exposed via ngrok tunnel:
 
-1. **Connect Repository**: Link your GitHub repository to Render
-2. **Configure Service**:
-   - **Environment**: Python
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn src:app --host 0.0.0.0 --port $PORT`
-3. **Environment Variables**: Set all required environment variables in Render dashboard
-4. **Deploy**: Render automatically deploys on git push
+1. **Install ngrok**: Download from https://ngrok.com/
+2. **Run your application locally**:
+   ```bash
+   uvicorn src:app --host 0.0.0.0 --port 8000
+   ```
+3. **Start ngrok tunnel**:
+   ```bash
+   ngrok http 8000
+   ```
+4. **Use the provided URL**: ngrok will give you a public URL to access your local API
 
 ### Deployment Checklist
 
-- ✅ Database configured (Aiven MySQL)
+- ✅ Database configured (MySQL)
 - ✅ Environment variables set
 - ✅ Dependencies listed in requirements.txt
 - ✅ Proper start command configured
-- ✅ CORS configured for production
+- ✅ ngrok tunnel configured
 - ✅ Error handling implemented
 - ✅ Logging configured
 
@@ -403,7 +416,7 @@ Test the API endpoints using the live deployment:
 
 ```bash
 # Base URL
-BASE_URL="https://hng-stage2-country-currency-exchange-api.onrender.com"
+BASE_URL="https://ectotrophic-thromboplastically-langston.ngrok-free.dev"
 
 # Test status endpoint
 curl "$BASE_URL/status"
@@ -445,8 +458,7 @@ curl "$BASE_URL/countries?region=Africa&limit=5"
 - **SQLModel**: Provides robust ORM capabilities with type safety
 - **Pydantic**: Ensures data validation and serialization
 - **MySQL**: Reliable relational database for structured country data
-- **Aiven**: Managed database service for production reliability
-- **Render**: Simple deployment with automatic SSL and scaling
+- **ngrok**: Secure tunneling service for exposing local development
 
 ### Database Schema
 
@@ -480,6 +492,6 @@ This project is part of the HNG internship program.
 
 ---
 
-**Live API**: https://hng-stage2-country-currency-exchange-api.onrender.com
+**Live API**: https://ectotrophic-thromboplastically-langston.ngrok-free.dev/
 
 For any issues or questions, please check the API documentation at the `/docs` endpoint of the live URL.

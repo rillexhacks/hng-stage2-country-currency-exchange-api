@@ -124,9 +124,9 @@ async def get_countries(
 
 
 @router.get("/countries/image", tags=["Image"])
-async def get_summary_image():
+async def get_summary_image(db: AsyncSession = Depends(get_session),):
     ser = CountryService()
-    await ser.generate_summary_image_if_missing()
+    await ser.generate_summary_image_if_missing(db)
     cache_dir = config.CACHE_DIR
     image_path = os.path.join(cache_dir, 'summary.png')
     
