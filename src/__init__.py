@@ -36,3 +36,11 @@ async def general_exception_handler(request, exc):
         status_code=500,
         content={"error": "Internal server error"}
     )
+
+
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
