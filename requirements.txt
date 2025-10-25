@@ -10,7 +10,7 @@ h11==0.16.0
 httpcore==1.0.9
 httpx==0.25.1
 idna==3.11
-Pillow==10.3.0
+Pillow>=10.4.0  # Changed this line
 pydantic==2.5.0
 pydantic-settings==2.1.0
 pydantic_core==2.14.1
