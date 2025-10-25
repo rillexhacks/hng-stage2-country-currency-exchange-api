@@ -290,10 +290,10 @@ class CountryService:
     
 
 
-    async def generate_summary_image_if_missing(self):
+    async def generate_summary_image_if_missing(self, db: AsyncSession):
         if not os.path.exists(config.CACHE_DIR):
             os.makedirs(config.CACHE_DIR)
         image_path = os.path.join(config.CACHE_DIR, "summary.png")
         if not os.path.exists(image_path):
             # Call your image generation function here
-          await generate_summary_image(image_path)
+          await self.generate_summary(db)
