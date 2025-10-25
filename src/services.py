@@ -106,6 +106,7 @@ class CountryService:
             "region": region,
             "population": population,
             "currency_code": currency_code,
+            
             "exchange_rate": exchange_rate,
             "estimated_gdp": estimated_gdp,
             "flag_url": flag_url,
@@ -134,9 +135,9 @@ class CountryService:
 
                 # Get the exchange rate for this currency
                 if currency_code and exchange_rates.get(currency_code):
-                    processed_data["currency_rate"] = exchange_rates[currency_code]
+                    processed_data["exchange_rate"] = exchange_rates[currency_code]
                 else:
-                    processed_data["currency_rate"] = None
+                    processed_data["exchange_rate"] = None
 
                 # Validate required fields
                 if not processed_data["name"] or processed_data["population"] is None:

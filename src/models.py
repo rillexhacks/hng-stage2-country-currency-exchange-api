@@ -18,6 +18,8 @@ class Country(SQLModel, table=True):
     capital: Optional[str] = Field(default=None, max_length=255)
     region: Optional[str] = Field(default=None, max_length=100)
     flag_url: Optional[str] = Field(default=None, max_length=500)
+   
+    
 
     # Computed / derived fields
     exchange_rate: Optional[float] = None
