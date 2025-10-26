@@ -31,26 +31,6 @@ async def root():
         },
     }
 
-@router.post("/countries/refresh-test", tags=["Countries"])
-async def refresh_countries_test():
-    """Test endpoint without database"""
-    service = CountryService()
-    
-    try:
-        # Just fetch and return the data without saving to DB
-        countries_data = await service.fetch_countries_data()
-        exchange_rates = await service.fetch_exchange_rates()
-        
-        return {
-            "message": "Data fetched successfully (not saved to DB)",
-            "total_countries": len(countries_data),
-            "sample_country": countries_data[0] if countries_data else None,
-            "sample_rates": dict(list(exchange_rates.items())[:5])
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 #  Endpoint to refresh countries data
 @router.post("/countries/refresh", response_model=RefreshResponse, tags=["Countries"])
 async def refresh_countries(db: AsyncSession = Depends(get_session)):
